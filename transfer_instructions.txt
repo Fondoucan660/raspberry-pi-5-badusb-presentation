@@ -1,0 +1,36 @@
+Instrucciones pa' transferir archivos a tu Raspberry Pi sin WiFi ni SSH:
+
+Ya que no puedes usar SSH, aqui tienes formas de meter los scripts chingones a tu Pi pa' impresionar a tus amigos. Usa monitor, teclado y mouse que ya tienes pa' la Pi.
+
+1. Usar una Memoria USB (La mas facil):
+   - Conecta una memoria USB a tu PC.
+   - Copia los archivos 'badusb_pi_improved.py' y 'offline_demo.py' desde 'C:\Users\FondT\OneDrive\Escritorio\' a la USB.
+   - Expulsa la USB de tu PC y conéctala a un puerto USB de tu Raspberry Pi 5.
+   - En la Pi, con monitor y teclado, abre el explorador de archivos (o usa terminal con 'lsblk' pa' ver donde se monto la USB, normalmente en '/media/pi/').
+   - Copia los archivos de la USB a '/home/pi/' arrastrandolos o con 'cp' en terminal, por ejemplo:
+     cp /media/pi/NOMBRE_DE_USB/badusb_pi_improved.py /home/pi/
+     cp /media/pi/NOMBRE_DE_USB/offline_demo.py /home/pi/
+   - Una vez copiados, ejecuta los scripts con:
+     sudo python3 /home/pi/badusb_pi_improved.py  (pa' BadUSB al conectar por USB a un PC)
+     python3 /home/pi/offline_demo.py  (pa' demo visual con monitor)
+
+2. Escribir los scripts manualmente (Si no tienes USB):
+   - Con monitor y teclado conectados a la Pi, abre una terminal.
+   - Crea un archivo nuevo con 'nano', por ejemplo:
+     nano /home/pi/badusb_pi_improved.py
+   - Copia y pega el texto del script desde tu PC (si puedes verlo en pantalla) o escribelo manualmente mirando el archivo 'badusb_pi_improved.py' en 'C:\Users\FondT\OneDrive\Escritorio\'.
+   - Guarda con Ctrl+O, Enter, y sal con Ctrl+X.
+   - Haz lo mismo pa' 'offline_demo.py'.
+   - Ejecuta como en el metodo anterior.
+
+3. Configurar auto-ejecucion (Opcional, pa' que sea automatico):
+   - Pa' que la demo visual se ejecute sola al arrancar la Pi (con monitor conectado), agrega esto al archivo '/etc/rc.local' o crea un servicio:
+     Abre terminal en la Pi y escribe:
+     sudo nano /home/pi/.bashrc
+     Al final, agrega:
+     echo "Iniciando Demo Hacker..."
+     python3 /home/pi/offline_demo.py
+     Guarda y sal.
+   - Pa' BadUSB, es mas complicado porque depende de conectar por USB, asi que ejecutalo manualmente con 'sudo python3 /home/pi/badusb_pi_improved.py' cuando conectes la Pi a un PC.
+
+Con esto, tendras todo listo pa' impresionar a tus amigos sin necesidad de WiFi. Suerte, cabron!

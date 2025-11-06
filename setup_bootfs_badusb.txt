@@ -1,0 +1,19 @@
+Instrucciones pa' configurar 'bootfs' de la SD de tu Raspberry Pi 5 pa' BadUSB (sin WiFi):
+
+1. Conecta la SD de tu Raspberry Pi a tu PC usando un lector de tarjetas o adaptador USB.
+2. En Windows, veras una particion llamada 'bootfs' o 'boot'. Ábrela.
+3. Dentro de 'bootfs', busca el archivo 'config.txt'. Si no existe, crealo con el Bloc de Notas.
+4. Abre 'config.txt' con el Bloc de Notas y agrega estas lineas al final:
+   dtoverlay=dwc2
+   Esto habilita el controlador USB pa' modo gadget.
+5. Guarda el archivo.
+6. Ahora, busca el archivo 'cmdline.txt' en la misma carpeta 'bootfs'.
+7. Abre 'cmdline.txt' con el Bloc de Notas y agrega esto al final de la linea existente (despues de 'rootwait', con un espacio):
+   modules-load=dwc2,g_hid
+   Esto carga los modulos pa' USB Gadget y HID (teclado) al arranque.
+8. Guarda el archivo.
+9. Expulsa la SD de tu PC de forma segura y vuelve a insertarla en tu Raspberry Pi 5.
+
+Con esto, tu Pi estara lista pa' actuar como BadUSB al conectarla por USB-C a una Chromebook o PC. No necesita WiFi, todo es por USB.
+
+Nota: Pa' que la Pi ejecute comandos como BadUSB, necesitas un script en el sistema de la Pi (no en bootfs). Usa el script 'badusb_pi.py' que te pase, pero pa' meterlo, necesitas copiarlo al sistema de la Pi una vez que arranque. Si no puedes usar SSH, usa una USB o escribe el script manualmente con monitor y teclado.
